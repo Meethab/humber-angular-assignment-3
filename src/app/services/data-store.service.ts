@@ -15,6 +15,11 @@ export class DataStoreService {
 
   private _cartItems: BehaviorSubject<ProductData[] | any> = new BehaviorSubject([]);
   cartItems$: Observable<ProductData[]> = this._cartItems.asObservable();
+ 
+  private _total: BehaviorSubject<OrderData[] | any> = new BehaviorSubject(null);
+  total$: Observable<number> = this._total.asObservable();
+
+
   private fullProductList!: ProductData[]
 
 
@@ -41,6 +46,16 @@ export class DataStoreService {
     });
   }
 
+  addToOrder(item: OrderData) {
+    this._orders.pipe(
+      take(1)
+    ).subscribe((orderItems: OrderData[]) => {
+      orderItems.push(item);
+      this._orders.next(orderItems);
+      //this.setOrders(orderItems);
+    });
+  }
+
   filterProducts(text: string) {
     this._products.pipe(
       take(1)
@@ -61,5 +76,13 @@ export class DataStoreService {
 
   setFullProductsList(products: ProductData[]) {
     this.fullProductList = products;
+  }
+
+  getLastAddress() {
+
+  }
+
+  saveAddress() {
+
   }
 }

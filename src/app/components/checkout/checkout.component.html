@@ -1,0 +1,98 @@
+
+<form [formGroup]="form" style="text-align:center">
+
+    <div>        
+        <label for="firstName">First Name</label><br>
+        <div class="error" *ngIf="form.get('firstName')?.dirty">
+            <p *ngIf="form.get('firstName')?.errors?.['forbiddenNumbers']">
+              Numbers are not allowed!
+            </p>
+            <p *ngIf="form.get('firstName')?.errors?.['spaces']">
+              Spaces are not allowed!
+            </p>
+        </div>
+
+        <input [class.error]="form.get('firstName')?.errors && form.get('firstName')?.dirty" 
+        formControlName="firstName" id="firstName" name="firstName" type="text">
+    </div>
+    <div>
+        <label for="lastName">Last Name </label><br>
+        <div class="error" *ngIf="form.get('lastName')?.dirty">
+            <p *ngIf="form.get('lastName')?.errors?.['forbiddenNumbers']">
+              Numbers are not allowed!
+            </p>
+            <p *ngIf="form.get('lastName')?.errors?.['spaces']">
+              Spaces are not allowed!
+            </p>
+        </div>
+
+        <input [class.error]="form.get('lastName')?.errors && form.get('lastName')?.dirty"
+        formControlName="lastName" id="lastName" name="lastName" type="text">
+    </div>
+    <div>
+        <label for="address">Address </label><br>
+        <input formControlName="address" type="text" id="address" name="address">
+    </div>
+    <div>
+        <label for="city">City </label><br>
+        <input formControlName="city" type="text" id="city" name="city">
+    </div>
+    <div>
+        <label for="postalCode">Postal Code </label><br>
+        <input formControlName="postalCode" type="text" id="postalCode" name="postalCode">
+    </div>
+
+    <div>
+        <label for="country">Country</label><br>
+        <select formControlName = "country" id="country" name="country">
+            <option value ="">select country </option>
+            <option value ="canada">Canada </option>
+            <option value ="us">United States</option>            
+        </select>
+    </div>
+
+    <div>
+        <label for="card"></label><br>
+        <select formControlName = "card" id="card" name="card">
+            <option value ="">select card </option>
+            <option value ="visa">VISA </option>
+            <option value ="mastercard">Mastercard </option>            
+        </select>
+    </div>
+
+    <div>
+        <label for="creditCardNo">Credit Card Number</label><br>
+        <div class="error" *ngIf="form.get('creditCardNo')?.dirty || form.get('creditCardNo')?.touched">
+            <p *ngIf="form.get('creditCardNo')?.errors?.['forbiddenCharacters']">
+              Character are not allowed!
+            </p>
+        </div>
+
+        <input [class.error]="form.get('creditCardNo')?.errors && (form.get('creditCardNo')?.dirty || form.get('creditCardNo')?.touched)"
+        formControlName="creditCardNo" type="text" id="creditCardNo" name="creditCardNo" maxlength="16">
+    </div>
+    <div>
+        <label for="expiry">Expiry </label><br>
+        <input formControlName="expiry" placeholder="MM/YYYY" type="expiry" id="" name="expiry" maxlength="7">
+    </div>
+    <div>
+        <label for="cvc">CVC </label><br>
+        <div class="error" *ngIf="form.get('cvc')?.dirty">
+            <p *ngIf="form.get('cvc')?.errors?.['forbiddenCharacters']">
+              Numbers are not allowed!
+            </p>
+        </div>
+
+        <input [class.error]="form.get('cvc')?.errors && form.get('cvc')?.dirty"
+        formControlName="cvc" type="text" id="cvc" name="cvc" maxlength="4">
+    </div>
+    <div>
+        <label for="nameOnCard">Name on Card</label><br>
+        <input formControlName="nameOnCard" type="text" id="nameOnCard" name="nameOnCard">
+    </div>   
+
+    <br>
+    <button (click) = "submit('confirmpage')" [disabled]="!form.valid">Submit</button> 
+
+    <p><strong>Total Order Amount:{{ total | currency:'$' }}</strong> </p>
+</form>
